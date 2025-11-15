@@ -8,7 +8,6 @@ import kotlinx.coroutines.launch
 
 class WineViewModel : ViewModel() {
 
-    // LiveData para la lista de vinos (datos a mostrar)
     private val _wines = MutableLiveData<List<Wines>>()
     val wines: LiveData<List<Wines>> = _wines
 
@@ -17,24 +16,20 @@ class WineViewModel : ViewModel() {
     val error: LiveData<String?> = _error
 
     init {
-        // La llamada a la API inicia tan pronto se crea el ViewModel
         loadWines()
     }
 
     private fun loadWines() {
-        // Ejecuta la llamada dentro del scope del ViewModel
         viewModelScope.launch {
             try {
-                // Llama al servicio API (la función suspendida)
                 val response = ClientRetro.instance.getRedWines()
 
                 if (response.isSuccessful) {
-                    _wines.value = response.body() // Envía los datos a la Activity
+                    _wines.value = response.body()
                 } else {
                     _error.value = "Error: ${response.code()}"
                 }
             } catch (e: Exception) {
-                // Maneja fallos de conexión o excepciones
                 _error.value = "Error de red: ${e.message}"
             }
         }

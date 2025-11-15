@@ -6,11 +6,9 @@ import androidx.activity.viewModels // Importación para usar 'by viewModels()'
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-// Ya no necesitas importar Call, Callback ni Retrofit
 
 class MainActivity : AppCompatActivity() {
 
-    // Inicializa el ViewModel usando la delegación viewModels()
     private val viewModel: WineViewModel by viewModels()
 
     private lateinit var recyclerView: RecyclerView
@@ -21,9 +19,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setupRecyclerView()
-        observeViewModel() // <-- Llama a la función que observa el LiveData
+        observeViewModel()
 
-        // **ELIMINAMOS la función loadWines() antigua y su llamada dentro de onCreate**
     }
 
     private fun setupRecyclerView() {
